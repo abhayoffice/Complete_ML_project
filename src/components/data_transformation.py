@@ -3,16 +3,23 @@ import pandas as pd
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
-from src.exception import CustomException
+from src.exception import CustomException, SkipFileException
 from src.logger import logging
 from dataclasses import dataclass
 from src.utils import save_object
+
 
 @dataclass
 class DataTransformationConfig:
     preprocessor_obj_file_path: str = os.path.join("artifacts", "preprocessor.pkl")
 
+
 class DataTransformation:
+    """
+            The Data Transformation will perform simple imputation on the data and also I have added a custom method that
+                    will replace the null values in the data with the median.
+    """
+
     def __init__(self, config):
         self.data_transformation_config = config
 
@@ -75,6 +82,7 @@ class DataTransformation:
 
             # To check the total size of dataframe.
             if train_df_transformed.shape[0] + test_df_transformed.shape[0] <= 36:
+                # We can raise a custom exception for this problem .
                 self.skip_file()
 
             train_df_transformed = self.replace_zero_with_median(train_df_transformed)
@@ -87,12 +95,23 @@ class DataTransformation:
             return train_df_transformed, test_df_transformed, df_transformed
             # return train_monthly, test_monthly
 
+        except SkipFileException as e:
+
+            logging.info("Data transformation skipped the file due to insufficient data.")
+
+            return pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
+
         except Exception as e:
+
+            logging.error("Data transformation failed with the following error: %s", str(e))
+
             raise CustomException(e)
 
     def skip_file(self):
-        print("Skip this file and use os.write() here")
-        return
+        # print("Skip this file and use os.write() here")
+        logging.info("!!!!!!!!!!!!!!!!!!!!  File Skipped due to insufficient data !!!!!!!!!!!!!!!!!!!!!!!!")
+        print("!!!!!!!!!!!!!!!!!!!!  File Skipped due to insufficient data !!!!!!!!!!!!!!!!!!!!!!!!")
+        raise SkipFileException("Skipping the file due to insufficient data")
 
     def replace_zero_with_median(self, df):
         median_value = df[df['Invoice Amount'] != 0.0]['Invoice Amount'].median()

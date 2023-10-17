@@ -21,3 +21,6 @@ class CustomException(Exception):
 
     def __str__(self):
         return self.args[0]
+
+class SkipFileException(Exception):
+    pass

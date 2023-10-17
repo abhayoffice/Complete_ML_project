@@ -9,7 +9,7 @@ class ESModel:
         r2_expo_smoothing = r2_score(test['Invoice Amount'], model_forecast)
         return r2_expo_smoothing
 
-    def get_model(self, train, test):
+    def get_model(self, train, test, data):
         print("------------------------------The Exponential Smoothing Model ------------------------------")
         # Simple Exponential Smoothing (SES) model
         ses_model = SimpleExpSmoothing(train['Invoice Amount']).fit()

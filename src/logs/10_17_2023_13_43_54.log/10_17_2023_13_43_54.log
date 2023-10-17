@@ -1,0 +1,18 @@
+[ 2023-10-17 13:43:54,936 ] 23 root - INFO - 
+<<<<<<<<<<<<<<<<<<<<<<<<<< C:\Users\abhay.bhandari\Jupyter files\Copy_Caresmartz360\Agencies >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+[ 2023-10-17 13:43:54,936 ] 28 root - INFO - Starting the data loader process....
+[ 2023-10-17 13:43:54,936 ] 32 root - INFO - Now working on each subfolder.
+[ 2023-10-17 13:43:54,936 ] 39 root - INFO - Started with the data loading process for AdmireCare
+[ 2023-10-17 13:43:54,944 ] 64 root - INFO - This is the main function that runs the complete data processing pipeline.
+[ 2023-10-17 13:43:54,944 ] 33 root - INFO - Entering the data ingestion method
+[ 2023-10-17 13:43:54,945 ] 36 root - INFO - Reading the dataset as a dataframe
+[ 2023-10-17 13:43:54,945 ] 39 root - INFO - Train-test split initiated
+[ 2023-10-17 13:43:54,945 ] 21 root - INFO - Preprocessing data...
+[ 2023-10-17 13:43:54,958 ] 56 root - INFO - Data ingestion completed successfully.
+[ 2023-10-17 13:43:54,958 ] 69 root - INFO - Data ingestion completed, running the data transformation...
+[ 2023-10-17 13:43:54,970 ] 49 root - INFO - Read train and test data completed
+[ 2023-10-17 13:43:54,970 ] 53 root - INFO - Obtaining time series data transformation parameters
+[ 2023-10-17 13:43:54,988 ] 77 root - INFO - Data transformation completed, initiating model training...
+[ 2023-10-17 13:43:54,988 ] 43 root - INFO - Working on Models !
+[ 2023-10-17 13:44:00,074 ] 85 root - ERROR - Data processing pipeline failed.

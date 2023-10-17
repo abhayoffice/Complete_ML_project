@@ -8,10 +8,10 @@ class AutoRegModel:
         r2_autoreg = r2_score(test["Invoice Amount"], autoreg_forecast_series)
         return r2_autoreg
 
-    def get_model(self, train, test):
+    def get_model(self, train, test, data):
         # AutoReg model
         print("------------------------------The AutoReg Model ------------------------------")
-        autoreg_model = AutoReg(train, lags=1)
+        autoreg_model = AutoReg(train, lags=30)
         autoreg_model_fit = autoreg_model.fit()
         return autoreg_model_fit
 

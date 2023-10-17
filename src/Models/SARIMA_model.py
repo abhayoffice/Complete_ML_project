@@ -1,8 +1,15 @@
+from sklearn.exceptions import ConvergenceWarning
+from statsmodels.tsa.statespace.sarimax import SARIMAX
+from sklearn.metrics import r2_score
+import warnings
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 from sklearn.metrics import r2_score
 import pandas as pd
 import itertools
 
+
+# Add this line to ignore all warnings
+warnings.filterwarnings("ignore")
 
 class SARIMAModel:
 
@@ -10,7 +17,7 @@ class SARIMAModel:
         r2_sarima = r2_score(test, model_forecast)
         return r2_sarima
 
-    def get_model(self, train, test):
+    def get_model(self, train, test, data):
         print("------------------------------The Seasonal ARIMA Model ------------------------------")
 
         # Define the range of p, d, q values
@@ -33,14 +40,14 @@ class SARIMAModel:
                 except:
                     continue
 
-                print('SARIMA{}x{}12 - AIC:{}'.format(param, param_seasonal, results_SARIMA.aic))
+                # print('SARIMA{}x{}12 - AIC:{}'.format(param, param_seasonal, results_SARIMA.aic))
                 SARIMA_AIC = SARIMA_AIC._append({'param': param, 'seasonal': param_seasonal, 'AIC': results_SARIMA.aic},
-                                               ignore_index=True)
+                                                ignore_index=True)
 
         # Sort the SARIMA_AIC DataFrame by AIC and get the parameters with the lowest AIC
         best_parameters = SARIMA_AIC.sort_values(by=['AIC']).iloc[0]
-        print("Best Parameters (p, d, q, P, D, Q, S):", best_parameters['param'], best_parameters['seasonal'])
-        print("Lowest AIC:", best_parameters['AIC'])
+        # print("Best Parameters (p, d, q, P, D, Q, S):", best_parameters['param'], best_parameters['seasonal'])
+        # print("Lowest AIC:", best_parameters['AIC'])
 
         # Train and return the SARIMA model with the best parameters
         sarima_model = SARIMAX(train, order=best_parameters['param'], seasonal_order=best_parameters['seasonal']).fit(
@@ -50,3 +57,7 @@ class SARIMAModel:
     def get_forecast(self, train, test, model):
         sarima_forecast = model.forecast(steps=len(test))
         return sarima_forecast
+
+
+# Reset warning filter when you're done
+warnings.filterwarnings("default")

@@ -3,6 +3,7 @@ import pickle
 from sklearn.metrics import r2_score
 from src.exception import CustomException
 
+
 def save_object(file_path, obj):
     try:
         dir_path = os.path.dirname(file_path)
@@ -15,7 +16,8 @@ def save_object(file_path, obj):
     except Exception as e:
         raise CustomException(e)
 
-def evaluate_models(train, test, models):
+
+def evaluate_models(train, test, models, data):
     try:
         report = {}
         my_instance = {}
@@ -23,9 +25,9 @@ def evaluate_models(train, test, models):
         for model_name, model in models.items():
 
             # model_instance = model.get_model(train['Invoice Amount'],test["Invoice Amount"])  # Instantiate the model
-            model_instance = model.get_model(train , test)  # Instantiate the model
+            model_instance = model.get_model(train, test, data)  # Instantiate the model
 
-            #get the forecasting value.
+            # get the forecasting value.
             forecast_instance = model.get_forecast(train, test, model_instance)
 
             # Train the model on the training data and calculate the r2 too.
@@ -42,6 +44,7 @@ def evaluate_models(train, test, models):
         return report, my_instance
     except Exception as e:
         raise CustomException(e)
+
 
 def load_object(file_path):
     try:

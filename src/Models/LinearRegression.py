@@ -11,7 +11,7 @@ class LinearRegressionModel:
         r2 = r2_score(self.y_test_data, pred)
         return r2
 
-    def get_model(self, train , test):
+    def get_model(self, train , test, data):
         print("------------------------------The LinearRegression Model ------------------------------")
 
         train ['data_1month'] = train['Invoice Amount'].shift(+1)
