@@ -1,0 +1,2 @@
+Best Model Name: AutoReg
+R2 Score: [0.34326412435706843]

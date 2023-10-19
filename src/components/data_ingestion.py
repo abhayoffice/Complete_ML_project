@@ -2,7 +2,7 @@ import os
 import pandas as pd
 from src.components.data_transformation import DataTransformation
 from src.components.model_trainer import ModelTrainer
-from src.exception import CustomException, SkipFileException
+from src.exception import CustomException
 from src.logger import logging
 from dataclasses import dataclass
 import json
@@ -84,3 +84,4 @@ class DataIngestion:
         except Exception as e:
             logging.error("Data processing pipeline failed.")
             raise CustomException(e)
+

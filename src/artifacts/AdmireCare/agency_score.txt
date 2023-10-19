@@ -1,0 +1,2 @@
+Best Model Name: ExpoSmoothing
+R2 Score: [-0.031399501994662904]
